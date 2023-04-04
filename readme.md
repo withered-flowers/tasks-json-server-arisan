@@ -1,5 +1,11 @@
 # Simple API Documentation
 
+## How to run this?
+
+1. Copy this repo
+1. `npm install`
+1. `node index.js`
+
 ## Model
 
 ### entrant
