@@ -13,8 +13,6 @@
 | password | string | hashed (bcrypt) |
 | saldo    | number |                 |
 
-|
-
 ### club
 
 | column   | type   | notes |
