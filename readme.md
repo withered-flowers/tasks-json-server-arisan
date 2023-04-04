@@ -5,6 +5,7 @@
 1. Copy this repo
 1. `npm install`
 1. `node index.js`
+1. Open browser: `http://localhost:3000`
 
 ## Model
 
