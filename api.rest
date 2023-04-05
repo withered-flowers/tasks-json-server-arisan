@@ -1,0 +1,71 @@
+# Gunakan REST Client di VSCode untuk mencoba ini
+@host=http://localhost:3000
+
+# Harus diganti valuenya ketika ingin mengetes
+# (Ada expiration 1h)
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJvbGVuX21vb3JlQGdtYWlsLmNvbSIsImlhdCI6MTY4MDY2MjU5MSwiZXhwIjoxNjgwNjY2MTkxfQ.CiW0DfOSz68FIDE9cRnVkmhmzG69B2zw--CTZgN8784
+
+###
+
+POST {{host}}/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "mohamed79",
+  "password": "123456"
+}
+
+###
+
+GET {{host}}/clubs HTTP/1.1
+
+###
+
+GET {{host}}/gifts?_expand=club&_expand=entrant HTTP/1.1
+
+###
+
+GET {{host}}/profile HTTP/1.1
+token_akses: {{token}}
+
+###
+
+POST {{host}}/clubs HTTP/1.1
+Content-Type: application/json
+token_akses: {{token}}
+
+{
+  "nama": "Halo Dunia",
+  "poolUang": 50000
+}
+
+### 
+
+PATCH {{host}}/clubs/51 HTTP/1.1
+Content-Type: application/json
+token_akses: {{token}}
+
+{
+  "poolUang": 250000
+}
+
+###
+
+POST {{host}}/gifts HTTP/1.1
+Content-Type: application/json
+token_akses: {{token}}
+
+{
+  "clubId": 10,
+  "reward": 150000
+}
+
+###
+
+PATCH {{host}}/gifts/101 HTTP/1.1
+Content-Type: application/json
+token_akses: {{token}}
+
+{
+  "reward": 250000
+}

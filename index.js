@@ -125,7 +125,12 @@ server.use(
 
         const objHadiah = hadiah.find((e) => e.id === queryGiftId);
 
-        if (objHadiah.entrantId !== headerEntrantId) {
+        if (!objHadiah) {
+          res.status(404).jsonp({
+            statusCode: 404,
+            error: "Not Found",
+          });
+        } else if (objHadiah.entrantId !== headerEntrantId) {
           res.status(403).jsonp({
             statusCode: 403,
             error: "Forbidden",
@@ -143,12 +148,6 @@ server.use(
     } else {
       next();
     }
-  },
-  // Renew File Logic
-  (req, res, next) => {
-    // Re-read file
-    [peserta, hadiah] = initializeData();
-    next();
   },
   // For path /profile
   (req, res, next) => {
@@ -169,7 +168,15 @@ server.use(
           error: "Forbidden",
         });
       }
+    } else {
+      next();
     }
+  },
+  // Renew File Logic
+  (req, res, next) => {
+    // Re-read file
+    [peserta, hadiah] = initializeData();
+    next();
   },
   router
 );
