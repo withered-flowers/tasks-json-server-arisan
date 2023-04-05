@@ -30,7 +30,7 @@ server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
 server.use((req, res, next) => {
-  if ((req.path === "/login") & (req.method === "POST")) {
+  if (req.path === "/login" && req.method === "POST") {
     let isLoggedIn = false;
     let payload = undefined;
 
@@ -82,8 +82,6 @@ server.use((req, res, next) => {
 
       next();
     } catch (err) {
-      console.log(err);
-
       res.status(401).jsonp({
         statusCode: 401,
         error: "Unauthenticated",
@@ -147,8 +145,13 @@ server.use(
   (req, res, next) => {
     // Re-read file
     [peserta, hadiah] = initializeData();
-    console.log("Success re-read file");
     next();
+  },
+  // For path /profile
+  (req, res, next) => {
+    if (req.path === "/profile" && req.method === "GET") {
+      // TODO: create profile router here
+    }
   },
   router
 );
