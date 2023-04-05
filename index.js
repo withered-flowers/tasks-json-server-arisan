@@ -64,7 +64,10 @@ server.use((req, res, next) => {
       statusCode: 400,
       error: "Peserta tidak boleh diintip !",
     });
-  } else if (req.path !== "/entrants" && req.method !== "GET") {
+  } else if (
+    (req.path !== "/entrants" && req.method !== "GET") ||
+    req.path === "/profile"
+  ) {
     try {
       // Must be logged in first
       // header name is token_akses
@@ -150,7 +153,22 @@ server.use(
   // For path /profile
   (req, res, next) => {
     if (req.path === "/profile" && req.method === "GET") {
-      // TODO: create profile router here
+      const headerEntrantId = +req.headers.access_given_id;
+
+      const foundPeserta = peserta.find((e) => e.id === headerEntrantId);
+      delete foundPeserta.password;
+
+      if (foundPeserta.id) {
+        res.status(200).jsonp({
+          statusCode: 200,
+          data: foundPeserta,
+        });
+      } else {
+        res.status(400).jsonp({
+          statusCode: 403,
+          error: "Forbidden",
+        });
+      }
     }
   },
   router

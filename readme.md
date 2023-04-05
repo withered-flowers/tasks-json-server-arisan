@@ -42,6 +42,7 @@
 - POST `/login`
 - GET `/clubs`
 - GET `/gifts?_expand=club&_expand=entrant`
+- GET `/profile`
 - POST `/clubs`
 - PATCH `/clubs/:id`
 - POST `/gifts`
@@ -135,6 +136,21 @@ Tidak diperlukan
 ```json
 {
   "token_akses": string
+}
+```
+
+## GET `/profile`
+
+### Request
+
+Tidak diperlukan
+
+### Response
+
+```json
+{
+  "statusCode": 200,
+  "data": entrant
 }
 ```
 
